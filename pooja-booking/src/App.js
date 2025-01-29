@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Dashboard } from "./components/Dashboard"; // Import Dashboard component
+import { Login } from "./components/Login"; // Import Login component
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = (username, password) => {
+    // Simple authentication logic (replace with real authentication later)
+    if (username === "admin" && password === "password") {
+      setIsLoggedIn(true);
+    } else {
+      alert("Invalid credentials. Please try again.");
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {isLoggedIn ? (
+        <Dashboard /> // Render Dashboard if logged in
+      ) : (
+        <Login onLogin={handleLogin} /> // Render Login component
+      )}
     </div>
   );
 }
